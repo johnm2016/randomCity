@@ -1,4 +1,4 @@
-FROM node:4.4.5
+FROM mhart/alpine-node:4.4.5
 
 # Copy src files
 COPY . /app/
