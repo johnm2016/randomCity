@@ -1,17 +1,23 @@
 FROM mhart/alpine-node:4.4.5
 
-# Copy src files
-COPY . /app/
+# Copy list of dependencies
+COPY package.json /tmp/package.json
 
-# Use /app working directory
+# Install dependencies
+RUN cd /tmp && npm install
+
+# Copy dependencies libraries
+RUN mkdir /app && cp -a /tmp/node_modules /app/
+
+# Copy source code
+COPY . /app
+
+# Change current dir
 WORKDIR /app
 
 # Expose API port
 ENV PORT 80
 EXPOSE 80
-
-# Build dependencies
-RUN npm install
 
 # Run application
 CMD ["npm", "start"]
